@@ -27,6 +27,7 @@ git pull origin master
 cd ../..
 git add Classes/dxco/
 git commit -m "updated submodule version"
+git push origin master
 ```
 
 The same can be accomplished with one command:
@@ -35,8 +36,18 @@ The same can be accomplished with one command:
 git submodule foreach git pull origin master
 ```
 
-## Push changes to dxco ##
+## Push changes to dxco from another project##
 
-TODO
+```
+cd PROJECT_HOME/Classes/dxco
+git add <stuff>
+git commit -m "updating dxco lib"
+git push origin master
+
+cd ../..
+git add Classes/dxco/
+git commit -m "updated submodule version"
+git push origin master
+```
 
 Check out the tutorial on [Git submodules](http://git-scm.com/book/en/Git-Tools-Submodules) for further details.
