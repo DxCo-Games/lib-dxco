@@ -153,7 +153,7 @@ bool Item::isVisible() {
 }
 
 float Item::getColitionRatio() {
-	return this->getWidth() / 2;
+	return this->getWidth() / 4;
 }
 
 //FIXME doesnt' work
