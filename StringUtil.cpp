@@ -33,9 +33,26 @@ std::vector<std::string> StringUtil::split(const std::string &s, char delim) {
 
     while (std::getline(ss, item, delim)) {
         elems.push_back(item);
-    }
+	}
 
     return elems;
 }
+
+std::string StringUtil::padLeft(std::string &str, const int stringSize, const char paddingChar)
+{
+	if(stringSize > str.size()) {
+		str.insert(0, stringSize - str.size(), paddingChar);
+	}
+
+	return str;
+}
+
+std::string StringUtil::padLeft(int number, const int stringSize)
+{
+	std::string numberString = toString(number);
+
+	return padLeft(numberString, stringSize, '0');
+}
+
 
 } /* namespace dxco */
