@@ -12,13 +12,13 @@ public:
 
 	void restart();
 	void update(cocos2d::CCSprite* sprite, float dt);
+	bool finished;
 private:
 	std::vector<cocos2d::CCTexture2D*> textures;
 	float frameTime;
 	bool repeat;
 	float dt;
 	int index;
-	bool finished;
 };
 
 } /* namespace dxco */
