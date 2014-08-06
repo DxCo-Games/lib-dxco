@@ -159,15 +159,19 @@ cocos2d::CCTexture2D* SpriteUtil::createTextuteWithBytes(std::string imageBytes)
 	return texture;
 }
 
-void SpriteUtil::fadeIn(cocos2d::CCSprite* sprite) {
+cocos2d::CCAction* SpriteUtil::fadeIn(cocos2d::CCSprite* sprite) {
 	sprite->setOpacity(0);
 	cocos2d::CCAction* action = cocos2d::CCFadeIn::create(1);
-	sprite->runAction(action);
+	return sprite->runAction(action);
 }
 
-void SpriteUtil::fadeOut(cocos2d::CCSprite* sprite) {
+cocos2d::CCAction* SpriteUtil::fadeOut(cocos2d::CCSprite* sprite) {
 	cocos2d::CCAction* action = cocos2d::CCFadeOut::create(1);
-	sprite->runAction(action);
+	return sprite->runAction(action);
+}
+
+void SpriteUtil::preloadTexture(std::string texture) {
+	cocos2d::CCTextureCache::sharedTextureCache()->addImage(texture.c_str());
 }
 
 }

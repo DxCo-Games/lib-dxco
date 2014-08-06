@@ -30,13 +30,15 @@ public:
 	static void rotate(cocos2d::CCSprite* sprite, float angle);
 	static void rotateToDegree(cocos2d::CCSprite* sprite, float degree);
 
-	static void fadeIn(cocos2d::CCSprite* sprite);
-	static void fadeOut(cocos2d::CCSprite* sprite);
+	static cocos2d::CCAction* fadeIn(cocos2d::CCSprite* sprite);
+	static cocos2d::CCAction* fadeOut(cocos2d::CCSprite* sprite);
 
 	static float getWebGLLocationX(float x);
 	static float getWebGLLocationY(float y);
 	static const int UNDEFINED = -321321;
 	static cocos2d::CCTexture2D* createTextuteWithBytes(std::string imageBytes);
+
+	static void preloadTexture(std::string texture);
 };
 
 } /* namespace dxco */
