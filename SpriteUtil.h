@@ -30,8 +30,8 @@ public:
 	static void rotate(cocos2d::CCSprite* sprite, float angle);
 	static void rotateToDegree(cocos2d::CCSprite* sprite, float degree);
 
-	static cocos2d::CCAction* fadeIn(cocos2d::CCSprite* sprite);
-	static cocos2d::CCAction* fadeOut(cocos2d::CCSprite* sprite);
+	static cocos2d::CCAction* fadeIn(cocos2d::CCSprite* sprite, float fadeInTime = 1);
+	static cocos2d::CCAction* fadeOut(cocos2d::CCSprite* sprite, float fadeOutTime = 1);
 
 	static float getWebGLLocationX(float x);
 	static float getWebGLLocationY(float y);
