@@ -4,6 +4,17 @@ namespace dxco {
 
 Animation::Animation(std::vector<cocos2d::CCTexture2D*> textures, float frameTime, bool repeat) {
 	this->textures = textures;
+	this->useFrames = false;
+	this->frameTime = frameTime;
+	this->repeat = repeat;
+	this->dt = 0;
+	this->index = 0;
+	this->finished = false;
+}
+
+Animation::Animation(std::vector<cocos2d::CCSpriteFrame*> spriteFrames, float frameTime, bool repeat) {
+	this->spriteFrames = spriteFrames;
+	this->useFrames = true;
 	this->frameTime = frameTime;
 	this->repeat = repeat;
 	this->dt = 0;
@@ -26,17 +37,30 @@ void Animation::update(cocos2d::CCSprite* sprite, float dt) {
 		this->index++;
 	}
 
-	if (this->index >= this->textures.size()) {
+	int size;
+	if (this->useFrames){
+		size = this->spriteFrames.size();
+	} else {
+		size = this->textures.size();
+	}
+
+	if (this->index >= size) {
 		if (this->repeat) {
 			this->index = 0;
 		} else {
 			this->finished = true;
-			this->index = this->textures.size() - 1;
+			this->index = size - 1;
 		}
 	}
 
-	cocos2d::CCTexture2D* texture = (cocos2d::CCTexture2D*) this->textures[this->index];
-	sprite->setTexture(texture);
+	if (this->useFrames){
+		cocos2d::CCSpriteFrame* frame = (cocos2d::CCSpriteFrame*) this->spriteFrames[this->index];
+		sprite->setDisplayFrame(frame);
+	} else {
+		cocos2d::CCTexture2D* texture = (cocos2d::CCTexture2D*) this->textures[this->index];
+		sprite->setTexture(texture);
+	}
+
 }
 
 } /* namespace dxco */

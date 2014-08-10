@@ -9,12 +9,15 @@ namespace dxco {
 class Animation {
 public:
 	Animation(std::vector<cocos2d::CCTexture2D*> textures, float frameTime, bool repeat = true);
+	Animation(std::vector<cocos2d::CCSpriteFrame*> spriteFrames, float frameTime, bool repeat = true);
 
 	void restart();
 	void update(cocos2d::CCSprite* sprite, float dt);
 	bool finished;
 private:
 	std::vector<cocos2d::CCTexture2D*> textures;
+	std::vector<cocos2d::CCSpriteFrame*> spriteFrames;
+	bool useFrames;
 	float frameTime;
 	bool repeat;
 	float dt;

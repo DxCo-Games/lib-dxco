@@ -3,9 +3,9 @@
 
 namespace dxco {
 
-cocos2d::CCSprite* SpriteUtil::create(std::string texture, float x, float y) {
+cocos2d::CCSprite* SpriteUtil::create(std::string texture, float x, float y, bool useFrame) {
 	return SpriteUtil::create(texture, x, y, SpriteUtil::UNDEFINED,
-			SpriteUtil::UNDEFINED);
+			SpriteUtil::UNDEFINED, useFrame);
 }
 
 void SpriteUtil::rotate(cocos2d::CCSprite* sprite, float angle) {
@@ -17,17 +17,23 @@ void SpriteUtil::rotateToDegree(cocos2d::CCSprite* sprite, float degree) {
 }
 
 cocos2d::CCSprite* SpriteUtil::create(std::string texture, float x, float y,
-		int width, int height) {
+		int width, int height, bool useFrame) {
 
 	cocos2d::CCPoint origin =
 				cocos2d::CCDirector::sharedDirector()->getVisibleOrigin();
 
-	return SpriteUtil::create(texture, x, y, width, height, origin);
+	return SpriteUtil::create(texture, x, y, width, height, origin, useFrame);
 }
 
-cocos2d::CCSprite* SpriteUtil::create(std::string texture, float x, float y, int width, int height, cocos2d::CCPoint origin) {
+cocos2d::CCSprite* SpriteUtil::create(std::string texture, float x, float y, int width, int height,
+		cocos2d::CCPoint origin, bool useFrame) {
 	cocos2d::CCSprite* result = NULL;
-	result = cocos2d::CCSprite::create(texture.c_str());
+
+	if (useFrame) {
+		result = cocos2d::CCSprite::createWithSpriteFrameName(texture.c_str());
+	} else {
+		result = cocos2d::CCSprite::create(texture.c_str());
+	}
 
 	int final_width;
 	int final_height;
@@ -172,6 +178,14 @@ cocos2d::CCAction* SpriteUtil::fadeOut(cocos2d::CCSprite* sprite, float fadeOutT
 
 void SpriteUtil::preloadTexture(std::string texture) {
 	cocos2d::CCTextureCache::sharedTextureCache()->addImage(texture.c_str());
+}
+
+void SpriteUtil::preloadTextureWithFile(std::string plistFile) {
+	cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(plistFile.c_str());
+}
+
+cocos2d::CCSpriteFrame* SpriteUtil::createSpriteFrame(std::string frameName) {
+	return cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frameName.c_str());
 }
 
 }

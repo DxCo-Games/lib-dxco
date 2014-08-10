@@ -15,9 +15,9 @@ namespace dxco {
 
 class SpriteUtil {
 public:
-	static cocos2d::CCSprite* create(std::string texture, float x, float y);
-	static cocos2d::CCSprite* create(std::string texture, float x, float y, int width, int height);
-	static cocos2d::CCSprite* create(std::string texture, float x, float y, int width, int height, cocos2d::CCPoint origin);
+	static cocos2d::CCSprite* create(std::string texture, float x, float y, bool useFrame = false);
+	static cocos2d::CCSprite* create(std::string texture, float x, float y, int width, int height, bool useFrame = false);
+	static cocos2d::CCSprite* create(std::string texture, float x, float y, int width, int height, cocos2d::CCPoint origin, bool useFrame = false);
 	static void move(cocos2d::CCSprite* sprite, float deltaA, float deltaY);
 	static void moveTo(cocos2d::CCSprite* sprite, float x, float y);
 	static void moveToAbsolute(cocos2d::CCSprite* sprite, float x, float y);
@@ -39,6 +39,8 @@ public:
 	static cocos2d::CCTexture2D* createTextuteWithBytes(std::string imageBytes);
 
 	static void preloadTexture(std::string texture);
+	static void preloadTextureWithFile(std::string plistFile);
+	static cocos2d::CCSpriteFrame* createSpriteFrame(std::string frameName); //creates frame from cache
 };
 
 } /* namespace dxco */
