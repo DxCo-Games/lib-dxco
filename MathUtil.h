@@ -16,6 +16,11 @@ public:
 	static float angle(cocos2d::CCPoint center, cocos2d::CCPoint pointA);
 
 	static float max(float value1, float value2);
+
+	//multiply by the scale
+	static cocos2d::CCPoint scalarProd(cocos2d::CCPoint vector, float scale);
+	//normalize vector and multiply by the scale
+	static cocos2d::CCPoint scaleVector(cocos2d::CCPoint vector, float scale);
 };
 
 } /* namespace dxco */

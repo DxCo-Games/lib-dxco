@@ -2,7 +2,7 @@
 
 namespace dxco {
 
-TopDownItem::TopDownItem(cocos2d::CCSprite* sprite, std::map<int, Animation*>& animations, int anglePositions) :
+TopDownItem::TopDownItem(int anglePositions) :
 		Item(sprite, animations)  {
 
 	this->anglePositions = anglePositions;

@@ -4,6 +4,7 @@
 namespace dxco {
 
 float MathUtil::distance(cocos2d::CCPoint a, cocos2d::CCPoint b) {
+	//FIXME use CCPoint distance
 	float x = a.x - b.x;
 	float y = a.y - b.y;
 	x = x * x;
@@ -51,6 +52,14 @@ float MathUtil::angle(cocos2d::CCPoint center,
 
 float MathUtil::max(float value1, float value2) {
 	return (value1 > value2) ? value1 : value2;
+}
+
+cocos2d::CCPoint MathUtil::scalarProd(cocos2d::CCPoint vector, float scale) {
+	return cocos2d::CCPoint(scale * vector.x, scale * vector.y);
+}
+
+cocos2d::CCPoint MathUtil::scaleVector(cocos2d::CCPoint vector, float scale) {
+	return scalarProd(vector.normalize(), scale);
 }
 
 } /* namespace dxco */

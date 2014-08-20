@@ -5,7 +5,7 @@
 
 namespace dxco {
 
-class TopDownItem: public Item {
+class TopDownItem: public virtual Item {
 public:
 
 	/* Construct a top down item with <anglePositions> amount of different
@@ -13,8 +13,7 @@ public:
 	 * and 8 rotation positions then animations 0-7 will be the standing animation in
 	 * each rotation and 8-15 will be the walking animations in each rotation.
 	 * */
-	TopDownItem(cocos2d::CCSprite* sprite, std::map<int, Animation*>& animations,
-			int anglePositions = 8);
+	TopDownItem(int anglePositions = 8);
 
 	int anglePositions;
 	int state;
