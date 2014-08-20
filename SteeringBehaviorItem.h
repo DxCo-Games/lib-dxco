@@ -21,9 +21,9 @@ public:
 	virtual cocos2d::CCPoint seek(float dt, cocos2d::CCPoint target);
 	virtual cocos2d::CCPoint arrive(float dt, cocos2d::CCPoint target, float distance);
 
-	/* By default sets the velocity to zero. Can be overridden to specify some action
+	/* By default sets the velocity point to the target. Can be overridden to specify some action
 	 * when the target is met, for example attack the enemy. */
-	virtual cocos2d::CCPoint stand(float dt);
+	virtual void stand(float dt, cocos2d::CCPoint target);
 
 	//distance values that mark the limit of each behavior
 	float wanderRange;

@@ -31,7 +31,8 @@ void SteeringBehaviorItem::update(float dt) {
 	} else if (dist > this->arriveRange) {
 		steeringForce = this->arrive(dt, target, dist);
 	} else {
-		steeringForce = this->stand(dt);
+		this->stand(dt, target);
+		return; //no need to move the item
 	}
 
 	//assuming mass=1 so accel = force.
@@ -85,8 +86,9 @@ cocos2d::CCPoint SteeringBehaviorItem::arrive(float dt, cocos2d::CCPoint target,
 	return desiredVelocity - this->currentVelocity;
 }
 
-cocos2d::CCPoint SteeringBehaviorItem::stand(float dt) {
-	return cocos2d::CCPointZero;
+void SteeringBehaviorItem::stand(float dt, cocos2d::CCPoint target) {
+	//make the velocity point to the destiny, even though it won't move
+	this->currentVelocity = target - this->getLocation();
 }
 
 } /* namespace dxco */
