@@ -25,9 +25,12 @@ void SteeringBehaviorItem::update(float dt) {
 
 	cocos2d::CCPoint steeringForce;
 
+	//allow overriding the speed in some of the behaviors
+	float speed = this->speed;
 	//select the steering behavior according to target distance
 	if (dist > this->wanderRange) {
 		steeringForce = this->wander(dt);
+		speed = this->getWanderSpeed();
 	} else if (dist > this->seekRange) {
 		steeringForce = this->seek(dt, target);
 	} else if (dist > this->arriveRange) {
@@ -40,7 +43,7 @@ void SteeringBehaviorItem::update(float dt) {
 	cocos2d::CCPoint acceleration = MathUtil::scalarProd(steeringForce, 1 / this->mass);
 	this->currentVelocity = this->currentVelocity + MathUtil::scalarProd(acceleration, dt);
 	//truncate velocity to max speed
-	this->currentVelocity = MathUtil::scaleVector(this->currentVelocity, this->speed);
+	this->currentVelocity = MathUtil::scaleVector(this->currentVelocity, speed);
 
 	//move according to current velocity, set by the behavior
 	cocos2d::CCPoint delta = MathUtil::scalarProd(this->currentVelocity, dt);
@@ -91,6 +94,10 @@ cocos2d::CCPoint SteeringBehaviorItem::arrive(float dt, cocos2d::CCPoint target,
 void SteeringBehaviorItem::stand(float dt, cocos2d::CCPoint target) {
 	//make the velocity point to the destiny, even though it won't move
 	this->currentVelocity = target - this->getLocation();
+}
+
+float SteeringBehaviorItem::getWanderSpeed() {
+	return this->speed;
 }
 
 } /* namespace dxco */

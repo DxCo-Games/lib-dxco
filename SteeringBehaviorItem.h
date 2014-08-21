@@ -46,6 +46,10 @@ public:
 	 * Random wander target to be defined by the subclasses (dependent on map dimensions).
 	 */
 	virtual void setNewWanderTarget() = 0;
+	/*
+	 * Speed used for wander behavior. Defaults to this->speed.
+	 */
+	virtual float getWanderSpeed();
 
 };
 
