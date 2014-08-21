@@ -3,7 +3,8 @@
 
 namespace dxco {
 
-SteeringBehaviorItem::SteeringBehaviorItem(float wanderRange, float seekRange, float arriveRange, float speed):
+SteeringBehaviorItem::SteeringBehaviorItem(float wanderRange, float seekRange, float arriveRange, float speed,
+		float mass):
 		Item(sprite, animations){
 
 	this->wanderRange = wanderRange;
@@ -12,6 +13,7 @@ SteeringBehaviorItem::SteeringBehaviorItem(float wanderRange, float seekRange, f
 
 	this->currentVelocity = cocos2d::CCPoint(0,0);
 	this->speed = speed;
+	this->mass = mass;
 
 	//assign the item location by default, so its regenereated next time
 	this->wanderTarget = this->getLocation();
@@ -35,8 +37,8 @@ void SteeringBehaviorItem::update(float dt) {
 		return; //no need to move the item
 	}
 
-	//assuming mass=1 so accel = force.
-	this->currentVelocity = this->currentVelocity + MathUtil::scalarProd(steeringForce, dt);
+	cocos2d::CCPoint acceleration = MathUtil::scalarProd(steeringForce, 1 / this->mass);
+	this->currentVelocity = this->currentVelocity + MathUtil::scalarProd(acceleration, dt);
 	//truncate velocity to max speed
 	this->currentVelocity = MathUtil::scaleVector(this->currentVelocity, this->speed);
 

@@ -13,7 +13,8 @@ namespace dxco {
  */
 class SteeringBehaviorItem: public virtual Item {
 public:
-	SteeringBehaviorItem(float wanderRange, float seekRange, float arriveRange, float speed);
+	SteeringBehaviorItem(float wanderRange, float seekRange, float arriveRange, float speed,
+			float mass = 1);
 
 	virtual void update(float dt);
 
@@ -32,6 +33,7 @@ public:
 
 	cocos2d::CCPoint currentVelocity;
 	float speed;
+	float mass;
 
 	/*
 	 * Seek/arrive target to be defined by subclasses.
