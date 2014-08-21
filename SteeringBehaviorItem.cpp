@@ -3,13 +3,8 @@
 
 namespace dxco {
 
-SteeringBehaviorItem::SteeringBehaviorItem(float wanderRange, float seekRange, float arriveRange, float speed,
-		float mass):
+SteeringBehaviorItem::SteeringBehaviorItem(float speed, float mass):
 		Item(sprite, animations){
-
-	this->wanderRange = wanderRange;
-	this->seekRange = seekRange;
-	this->arriveRange = arriveRange;
 
 	this->currentVelocity = cocos2d::CCPoint(0,0);
 	this->speed = speed;
@@ -19,23 +14,25 @@ SteeringBehaviorItem::SteeringBehaviorItem(float wanderRange, float seekRange, f
 	this->wanderTarget = this->getLocation();
 }
 
-void SteeringBehaviorItem::update(float dt) {
-	cocos2d::CCPoint target = this->getTarget();
-	float dist = MathUtil::distance(this->getLocation(), target);
-
-	cocos2d::CCPoint steeringForce;
+void SteeringBehaviorItem::updateBehaviors(float dt, int enabledBehaviors,
+		cocos2d::CCPoint target, float distance,
+		float slowingRadius, float arrivalLimit) {
 
 	//allow overriding the speed in some of the behaviors
 	float speed = this->speed;
-	//select the steering behavior according to target distance
-	if (dist > this->wanderRange) {
-		steeringForce = this->wander(dt);
+	//add the steering forces according to the enabled behaviors
+	cocos2d::CCPoint steeringForce = cocos2d::CCPointZero;
+	if (enabledBehaviors & USE_WANDER) {
+		steeringForce = steeringForce + this->wander(dt);
 		speed = this->getWanderSpeed();
-	} else if (dist > this->seekRange) {
-		steeringForce = this->seek(dt, target);
-	} else if (dist > this->arriveRange) {
-		steeringForce = this->arrive(dt, target, dist);
-	} else {
+	}
+	if (enabledBehaviors & USE_SEEK) {
+		steeringForce = steeringForce + this->seek(dt, target);
+	}
+	if (enabledBehaviors & USE_ARRIVE) {
+		steeringForce = steeringForce + this->arrive(dt, target, distance, slowingRadius, arrivalLimit);
+	}
+	if (enabledBehaviors & USE_STAND) {
 		this->stand(dt, target);
 		return; //no need to move the item
 	}
@@ -78,11 +75,10 @@ cocos2d::CCPoint SteeringBehaviorItem::seek(float dt, cocos2d::CCPoint target) {
 	return desiredVelocity - this->currentVelocity;
 }
 
-cocos2d::CCPoint SteeringBehaviorItem::arrive(float dt, cocos2d::CCPoint target, float distance) {
-	//radius of the arrival range -where the item slows down
-	float slowingRadius = this->seekRange - this->arriveRange;
+cocos2d::CCPoint SteeringBehaviorItem::arrive(float dt, cocos2d::CCPoint target, float distance,
+		float slowingRadius, float arrivalLimit) {
 	//distance to the limit of the range -where the item stops moving
-	float arrivalDistance = distance - this->arriveRange;
+	float arrivalDistance = distance - arrivalLimit;
 
 	//same as seek but scales by the slowing factor until it stops
 	float slowingFactor = this->speed * (arrivalDistance / slowingRadius);

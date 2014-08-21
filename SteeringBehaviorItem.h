@@ -13,32 +13,39 @@ namespace dxco {
  */
 class SteeringBehaviorItem: public virtual Item {
 public:
-	SteeringBehaviorItem(float wanderRange, float seekRange, float arriveRange, float speed,
-			float mass = 1);
+	SteeringBehaviorItem(float speed, float mass = 1);
 
-	virtual void update(float dt);
+	enum behaviors {
+		USE_WANDER = 1,
+		USE_SEEK = 2,
+		USE_ARRIVE = 4,
+		USE_STAND = 8,
+		USE_WALL_AVOIDANCE = 16,
+		USE_SEPARATION = 32,
+		USE_FLEE = 64,
+	};
+
+	/* Calculates the steering forces of the enabled behaviors and updates the
+	 * item velocity and position according to them. For the arrival behavior,
+	 * the slowingRadius sets the length of the decelaration line and arrivalLimit
+	 * at which distance from the target it should stop.
+	 */
+	virtual void updateBehaviors(float dt, int enabledBehaviors,
+			cocos2d::CCPoint target, float distance,
+			float slowingRadius = 0, float arrivalLimit = 0);
 
 	virtual cocos2d::CCPoint wander(float dt);
 	virtual cocos2d::CCPoint seek(float dt, cocos2d::CCPoint target);
-	virtual cocos2d::CCPoint arrive(float dt, cocos2d::CCPoint target, float distance);
+	virtual cocos2d::CCPoint arrive(float dt, cocos2d::CCPoint target, float distance,
+			float slowingRadius, float arrivalDistance);
 
 	/* By default sets the velocity point to the target. Can be overridden to specify some action
 	 * when the target is met, for example attack the enemy. */
 	virtual void stand(float dt, cocos2d::CCPoint target);
 
-	//distance values that mark the limit of each behavior
-	float wanderRange;
-	float seekRange;
-	float arriveRange;
-
 	cocos2d::CCPoint currentVelocity;
 	float speed;
 	float mass;
-
-	/*
-	 * Seek/arrive target to be defined by subclasses.
-	 */
-	virtual cocos2d::CCPoint getTarget() = 0;
 
 	cocos2d::CCPoint wanderTarget;
 	float wanderDt;
