@@ -15,8 +15,13 @@ SteeringBehaviorItem::SteeringBehaviorItem(float speed, float mass):
 }
 
 void SteeringBehaviorItem::updateBehaviors(float dt, int enabledBehaviors,
-		cocos2d::CCPoint target, float distance,
+		cocos2d::CCPoint target, float distance, std::vector<Item*> &items,
 		float slowingRadius, float arrivalLimit) {
+
+	if (enabledBehaviors & USE_STAND) {
+		this->stand(dt, target);
+		return; //no need to move the item
+	}
 
 	//allow overriding the speed in some of the behaviors
 	float speed = this->speed;
@@ -32,9 +37,10 @@ void SteeringBehaviorItem::updateBehaviors(float dt, int enabledBehaviors,
 	if (enabledBehaviors & USE_ARRIVE) {
 		steeringForce = steeringForce + this->arrive(dt, target, distance, slowingRadius, arrivalLimit);
 	}
-	if (enabledBehaviors & USE_STAND) {
-		this->stand(dt, target);
-		return; //no need to move the item
+	if (enabledBehaviors & USE_SEPARATION) {
+		std::vector<Item*> neighbors;
+		this->getNeighborgs(items, neighbors);
+		steeringForce = steeringForce + this->separation(dt, neighbors);
 	}
 
 	cocos2d::CCPoint acceleration = MathUtil::scalarProd(steeringForce, 1 / this->mass);
@@ -90,6 +96,40 @@ cocos2d::CCPoint SteeringBehaviorItem::arrive(float dt, cocos2d::CCPoint target,
 void SteeringBehaviorItem::stand(float dt, cocos2d::CCPoint target) {
 	//make the velocity point to the destiny, even though it won't move
 	this->currentVelocity = target - this->getLocation();
+}
+
+cocos2d::CCPoint SteeringBehaviorItem::separation(float dt, std::vector<Item*> &neighbors) {
+	CCLOG("NEIGHBORS: %d", neighbors.size());
+	cocos2d::CCPoint steeringForce;
+	for (int i = 0; i < neighbors.size(); i++) {
+		cocos2d::CCPoint to = this->getLocation() - neighbors[i]->getLocation();
+		//scale the force proportional to distance from neighbor
+		steeringForce = steeringForce + MathUtil::scaleVector(to, 1 / to.getLength());
+	}
+	return MathUtil::scaleVector(steeringForce, 10);
+}
+
+void SteeringBehaviorItem::getNeighborgs(std::vector<Item*> &items,
+			std::vector<Item*> &neighbors) {
+
+	//arbitrarly define neighborhood radius
+	float thisRadius = this->getWidth() / 2;
+
+	for (int i = 0; i < items.size(); i++) {
+		if (items[i] != this){
+			cocos2d::CCPoint to = this->getLocation() - items[i]->getLocation();
+			float range = thisRadius + items[i]->getWidth()/2;
+
+			//compare squared lengths to avoid sqrt
+			if(to.getLengthSq() < range*range ) {
+				neighbors.push_back(items[i]);
+				//funky ass optimization
+				if (neighbors.size() > 5) {
+					return;
+				}
+			}
+		}
+	}
 }
 
 float SteeringBehaviorItem::getWanderSpeed() {

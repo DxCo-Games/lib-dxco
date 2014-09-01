@@ -31,17 +31,20 @@ public:
 	 * at which distance from the target it should stop.
 	 */
 	virtual void updateBehaviors(float dt, int enabledBehaviors,
-			cocos2d::CCPoint target, float distance,
+			cocos2d::CCPoint target, float distance, std::vector<Item*> &items,
 			float slowingRadius = 0, float arrivalLimit = 0);
 
 	virtual cocos2d::CCPoint wander(float dt);
 	virtual cocos2d::CCPoint seek(float dt, cocos2d::CCPoint target);
 	virtual cocos2d::CCPoint arrive(float dt, cocos2d::CCPoint target, float distance,
 			float slowingRadius, float arrivalDistance);
+	virtual cocos2d::CCPoint separation(float dt, std::vector<Item*> &neighbors);
 
 	/* By default sets the velocity point to the target. Can be overridden to specify some action
 	 * when the target is met, for example attack the enemy. */
 	virtual void stand(float dt, cocos2d::CCPoint target);
+
+	void getNeighborgs(std::vector<Item*> &items, std::vector<Item*> &neighbors);
 
 	cocos2d::CCPoint currentVelocity;
 	float speed;
