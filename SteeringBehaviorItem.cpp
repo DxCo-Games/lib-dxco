@@ -99,7 +99,6 @@ void SteeringBehaviorItem::stand(float dt, cocos2d::CCPoint target) {
 }
 
 cocos2d::CCPoint SteeringBehaviorItem::separation(float dt, std::vector<Item*> &neighbors) {
-	CCLOG("NEIGHBORS: %d", neighbors.size());
 	cocos2d::CCPoint steeringForce;
 	for (int i = 0; i < neighbors.size(); i++) {
 		cocos2d::CCPoint to = this->getLocation() - neighbors[i]->getLocation();
