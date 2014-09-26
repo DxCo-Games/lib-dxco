@@ -9,6 +9,7 @@ namespace dxco {
 class LabelUtil {
 public:
 	static cocos2d::CCLabelTTF* create(std::string text,  int fontSize, int x, int y, int vertical, int horizontal);
+	static cocos2d::CCLabelTTF* create(std::string text,  int fontSize, int x, int y, int vertical, int horizontal, std::string font);
 	static cocos2d::CCLabelTTF* create(std::string text,  int fontSize, int x, int y, int vertical, int horizontal, cocos2d::CCSprite* sprite);
 	static cocos2d::CCLabelTTF* create(std::string text,  int fontSize, int x, int y, int vertical, int horizontal, float width, float height, cocos2d::CCPoint origin);
 	static cocos2d::CCLabelTTF* create(std::string text,  int fontSize, int x, int y, int vertical, int horizontal, float width, float height, cocos2d::CCPoint origin, std::string font);
