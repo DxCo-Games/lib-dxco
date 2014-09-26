@@ -9,30 +9,27 @@ cocos2d::CCLabelTTF* LabelUtil::create(std::string text, int fontSize, int x,
 
 	cocos2d::CCPoint origin = sprite->getPosition();
 
-	return LabelUtil::create(text, fontSize, x, y, vertical, horizontal, width,
-			height, origin);
+	return LabelUtil::create(text, fontSize, x, y, vertical, horizontal, width, height, origin);
 }
 
-cocos2d::CCLabelTTF* LabelUtil::create(std::string text, int fontSize, int x,
-		int y, int vertical, int horizontal) {
-
-	cocos2d::CCSize visibleSize =
-			cocos2d::CCDirector::sharedDirector()->getVisibleSize();
+cocos2d::CCLabelTTF* LabelUtil::create(std::string text, int fontSize, int x, int y, int vertical, int horizontal, std::string font) {
+	cocos2d::CCSize visibleSize = cocos2d::CCDirector::sharedDirector()->getVisibleSize();
 
 	float width = visibleSize.width;
 	float height = visibleSize.height;
-	cocos2d::CCPoint origin =
-			cocos2d::CCDirector::sharedDirector()->getVisibleOrigin();
+	cocos2d::CCPoint origin = cocos2d::CCDirector::sharedDirector()->getVisibleOrigin();
 
-	return LabelUtil::create(text, fontSize, x, y, vertical, horizontal, width,
-			height, origin);
+	return LabelUtil::create(text, fontSize, x, y, vertical, horizontal, width, height, origin, font);
+}
+
+cocos2d::CCLabelTTF* LabelUtil::create(std::string text, int fontSize, int x, int y, int vertical, int horizontal) {
+	return LabelUtil::create(text, fontSize, x, y, vertical, horizontal, "fonts/MarkerFelt.ttf");
 }
 
 cocos2d::CCLabelTTF* LabelUtil::create(std::string text, int fontSize, int x,
 		int y, int vertical, int horizontal, float width, float height,
 		cocos2d::CCPoint origin) {
-	return create(text, fontSize, x, y, vertical, horizontal, width, height,
-			origin, "fonts/MarkerFelt.ttf");
+	return create(text, fontSize, x, y, vertical, horizontal, width, height, origin, "fonts/MarkerFelt.ttf");
 }
 
 cocos2d::CCLabelTTF* LabelUtil::create(std::string text, int fontSize, int x,
