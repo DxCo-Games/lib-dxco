@@ -46,6 +46,7 @@ void Item::move(float deltaX, float deltaY) {
 }
 
 void Item::moveTo(float x, float y) {
+	/*this is weird*/
 	SpriteUtil::moveTo(this->sprite, x, y);
 }
 

@@ -1,4 +1,5 @@
 #include "Container.h"
+#include "Item.h"
 
 namespace dxco {
 
@@ -40,6 +41,32 @@ void Container::moveTo(float x, float y) {
 
 void Container::moveToAbsolute(float x, float y) {
 	this->setPosition(ccp(x, y));
+}
+
+bool Container::inside(Item *item) {
+	return (item->getLeftPosition() > 0 &&
+			item->getRightPosition() < this->width &&
+			item->getBottomPosition() > 0 &&
+			item->getTopPosition() < this->height);
+}
+
+void Container::putInside(Item *item) {
+	cocos2d::CCPoint location = item->getLocation();
+	float itemWidth = item->getWidth() / 4;
+	float itemHeight = item->getHeight() / 4;
+
+	if (location.x - itemWidth < 0){
+		item->move(-location.x + itemWidth, 0);
+	}
+	if (location.x + itemWidth > this->width) {
+		item->move(-(location.x - this->width) -itemWidth, 0);
+	}
+	if (location.y - itemHeight < 0) {
+		item->move(0, -location.y + itemHeight);
+	}
+	if (location.y + itemHeight > this->height) {
+		item->move(0, -(location.y - this->height) -itemHeight);
+	}
 }
 
 } /* namespace dxco */
