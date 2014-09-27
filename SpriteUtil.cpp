@@ -188,4 +188,9 @@ cocos2d::CCSpriteFrame* SpriteUtil::createSpriteFrame(std::string frameName) {
 	return cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frameName.c_str());
 }
 
+void SpriteUtil::leftAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave) {
+	float leftMargin = master->getPositionX() - SpriteUtil::getWidth(master) / 2;
+	slave->setPositionX(leftMargin + SpriteUtil::getWidth(slave) / 2);
+}
+
 }
