@@ -193,4 +193,9 @@ void SpriteUtil::leftAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave) 
 	slave->setPositionX(leftMargin + SpriteUtil::getWidth(slave) / 2);
 }
 
+void SpriteUtil::rightAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave) {
+	float leftMargin = master->getPositionX() + SpriteUtil::getWidth(master) / 2;
+	slave->setPositionX(leftMargin - SpriteUtil::getWidth(slave) / 2);
+}
+
 }

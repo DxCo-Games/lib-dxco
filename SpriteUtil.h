@@ -42,7 +42,9 @@ public:
 	static void preloadTextureWithFile(std::string plistFile);
 	static cocos2d::CCSpriteFrame* createSpriteFrame(std::string frameName); //creates frame from cache
 
+	//maybe this should go in label tuils
 	static void leftAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave);
+	static void rightAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave);
 };
 
 } /* namespace dxco */
