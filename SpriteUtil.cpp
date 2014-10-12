@@ -189,13 +189,24 @@ cocos2d::CCSpriteFrame* SpriteUtil::createSpriteFrame(std::string frameName) {
 }
 
 void SpriteUtil::leftAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave) {
+
+	copyScale(master, slave);
+
 	float leftMargin = master->getPositionX() - SpriteUtil::getWidth(master) / 2;
 	slave->setPositionX(leftMargin + SpriteUtil::getWidth(slave) / 2);
 }
 
 void SpriteUtil::rightAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave) {
+
+	copyScale(master, slave);
+
 	float leftMargin = master->getPositionX() + SpriteUtil::getWidth(master) / 2;
 	slave->setPositionX(leftMargin - SpriteUtil::getWidth(slave) / 2);
+}
+
+void SpriteUtil::copyScale(cocos2d::CCSprite* spriteFrom, cocos2d::CCSprite* spriteTo) {
+	spriteTo->setScaleX(spriteFrom->getScaleX());
+	spriteTo->setScaleY(spriteFrom->getScaleY());
 }
 
 }

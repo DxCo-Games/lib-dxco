@@ -45,6 +45,8 @@ public:
 	//maybe this should go in label tuils
 	static void leftAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave);
 	static void rightAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave);
+
+	static void copyScale(cocos2d::CCSprite* spriteFrom, cocos2d::CCSprite* spriteTo);
 };
 
 } /* namespace dxco */
