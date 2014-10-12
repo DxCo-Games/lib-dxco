@@ -93,11 +93,16 @@ void JoystickController::ccTouchesMoved(cocos2d::CCSet *pTouches,
 void JoystickController::setRelatedJoystick(int id, cocos2d::CCPoint location) {
 	Joystick* joystick = NULL;
 
+	if (!this->joysticks.size()) {
+		return;
+	}
+
 	for (int i = 0; i < this->joysticks.size(); i++) {
 		float distance = MathUtil::distance(this->joysticks[i]->getCenter(), location);
 
-		if (distance <= this->joysticks[i]->getRadio()) {
+		if (distance <= this->joysticks[i]->getRadio() * 1.2) {
 			joystick = this->joysticks[i];
+			break;
 		}
 	}
 
