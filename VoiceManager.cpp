@@ -7,10 +7,20 @@ namespace dxco {
 VoiceManager::VoiceManager(float voiceInterval) {
 	this->voiceInterval = voiceInterval;
 	this->dt = 0;
+	this->randomDt = 0;
 }
 
 void VoiceManager::update(float dt) {
 	this->dt += dt;
+
+	this->randomDt += dt;
+	if (this->randomDt > this->voiceInterval) {
+		this->randomDt = 0;
+		if (random() % 10 < 3 ) {
+			int i = random() % this->randomVoices.size();
+			this->doPlay(this->randomVoices[i]);
+		}
+	}
 }
 
 void VoiceManager::play(std::string sound, float probability) {
@@ -28,6 +38,10 @@ void VoiceManager::play(std::string sound1, std::string sound2, float probabilit
 			this->doPlay(sound2);
 		}
 	}
+}
+
+void VoiceManager::loadRandom(std::string sound) {
+	this->randomVoices.push_back(sound);
 }
 
 void VoiceManager::doPlay(std::string sound) {

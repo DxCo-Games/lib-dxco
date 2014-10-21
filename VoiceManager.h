@@ -2,6 +2,7 @@
 #define VOICEMANAGER_H_
 
 #include <string>
+#include <vector>
 
 namespace dxco {
 
@@ -15,11 +16,15 @@ public:
 	//play either sound
 	void play(std::string sound1, std::string sound2, float probability = 1);
 
+	//will play after voiceInterval with no sound and with probability .5
+	void loadRandom(std::string sound);
+
 private:
 	void doPlay(std::string sound);
 	float dt;
 	float voiceInterval;
-
+	float randomDt;
+	std::vector<std::string> randomVoices;
 
 };
 
