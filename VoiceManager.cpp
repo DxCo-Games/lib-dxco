@@ -16,7 +16,7 @@ void VoiceManager::update(float dt) {
 	this->randomDt += dt;
 	if (this->randomDt > this->voiceInterval) {
 		this->randomDt = 0;
-		if (random() % 10 < 3 ) {
+		if (random() % 10 < 2 ) {
 			int i = random() % this->randomVoices.size();
 			this->doPlay(this->randomVoices[i]);
 		}
