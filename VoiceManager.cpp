@@ -52,4 +52,9 @@ void VoiceManager::doPlay(std::string sound) {
 	}
 }
 
+bool VoiceManager::isPlaying() {
+	//wild guess, less than a second means still playing
+	return this->dt < 1.2;
+}
+
 } /* namespace dxco */

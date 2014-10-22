@@ -13,6 +13,9 @@ public:
 	void update(float dt);
 	void play(std::string sound, float probability = 1);
 
+	//guess if a sound is playing
+	bool isPlaying();
+
 	//play either sound
 	void play(std::string sound1, std::string sound2, float probability = 1);
 
