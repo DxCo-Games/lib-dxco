@@ -14,7 +14,7 @@ public:
 	static std::vector<std::string> split(const std::string &s, char delim);
 	static std::string padLeft(std::string &str, const int stringSize, const char paddingChar = ' ');
 	static std::string padLeft(int number, const int stringSize);
-
+	static std::string intToKString(int number);
 };
 
 } /* namespace dxco */

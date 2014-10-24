@@ -15,6 +15,18 @@ std::string StringUtil::toString(float data) {
 	return ss.str();
 }
 
+std::string StringUtil::intToKString(int number) {
+
+	if (number < 1000) { // full number
+		return StringUtil::toString(number);
+	}
+
+	if (number < 10000) { // 1 decimal place
+		return StringUtil::toString((float)((int)((number / 1000.0) * 10) / 10.0)) + "k";
+	}
+
+	return StringUtil::toString(number / 1000) + "k"; // no decimal place
+}
 
 int StringUtil::toInt(std::string data) {
 	int value;
