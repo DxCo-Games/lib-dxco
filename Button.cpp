@@ -7,6 +7,9 @@ ButtonDxCo::ButtonDxCo(cocos2d::CCNode* sprite) : Touchable(sprite){
 	this->off();
 }
 
+ButtonDxCo::ButtonDxCo() : Touchable(){
+}
+
 ButtonDxCo::~ButtonDxCo() {
 
 }

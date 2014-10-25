@@ -7,6 +7,10 @@ Touchable::Touchable(cocos2d::CCNode* sprite) {
 	this->sprite = sprite;
 }
 
+Touchable::Touchable() {
+	this->sprite = NULL;
+}
+
 Touchable::~Touchable() {
 
 }

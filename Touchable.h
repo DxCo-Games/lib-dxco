@@ -9,6 +9,7 @@ namespace dxco {
 class Touchable {
 public:
 	Touchable(cocos2d::CCNode* sprite);
+	Touchable();
 	virtual ~Touchable();
 	void touch(cocos2d::CCPoint location);
 
@@ -18,7 +19,7 @@ public:
 	virtual void execute() = 0;
 
 	cocos2d::CCNode* getSprite();
-protected:
+
 	bool isTouched(cocos2d::CCPoint location);
 	cocos2d::CCNode* sprite;
 };

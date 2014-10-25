@@ -9,6 +9,7 @@ namespace dxco {
 class ButtonDxCo : public Touchable {
 public:
 	ButtonDxCo(cocos2d::CCNode* sprite);
+	ButtonDxCo();
 	virtual ~ButtonDxCo();
 
 	virtual void execute() = 0;
