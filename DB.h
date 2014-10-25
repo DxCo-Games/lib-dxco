@@ -11,7 +11,7 @@ public:
 	static void putInteger(const std::string& key, const int& value);
 
 	static std::string getString(const std::string& key);
-	static int getInteger(const std::string& key);
+	static int getInteger(const std::string& key, int def=0);
 };
 
 } /* namespace dxco */

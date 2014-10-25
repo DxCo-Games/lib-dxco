@@ -16,8 +16,8 @@ std::string DB::getString(const std::string& key) {
 	return cocos2d::CCUserDefault::sharedUserDefault()->getStringForKey(key.c_str());
 }
 
-int DB::getInteger(const std::string& key) {
-	return cocos2d::CCUserDefault::sharedUserDefault()->getIntegerForKey(key.c_str());
+int DB::getInteger(const std::string& key, int def) {
+	return cocos2d::CCUserDefault::sharedUserDefault()->getIntegerForKey(key.c_str(), def);
 }
 
 } /* namespace dxco */
