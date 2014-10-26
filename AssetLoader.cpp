@@ -8,6 +8,7 @@
 #include "AssetLoader.h"
 #include "SpriteUtil.h"
 #include "SimpleAudioEngine.h"
+#include "cocos2d.h"
 
 namespace dxco {
 
@@ -30,10 +31,12 @@ void AssetLoader::loadNext() {
 
 		if (this->currentAsset < this->assetsToLoad.size()) {
 			std::string nextAsset = this->assetsToLoad[this->currentAsset];
+			CCLOG("Loading resource %s", nextAsset.c_str());
 			dxco::SpriteUtil::preloadTextureWithFile(nextAsset.c_str());
 			this->currentAsset++;
 		} else {
-			std::string nextAsset = this->assetsToLoad[this->currentAsset - this->assetsToLoad.size()];
+			std::string nextAsset = this->soundAssetsToLoad[this->currentAsset - this->assetsToLoad.size()];
+			CCLOG("Loading resource %s", nextAsset.c_str());
 			CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(nextAsset.c_str());
 			this->currentAsset++;
 		}
