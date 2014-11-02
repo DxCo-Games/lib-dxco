@@ -131,6 +131,24 @@ float LabelUtil::getHeight(cocos2d::CCLabelTTF* label) {
 	return result;
 }
 
+void LabelUtil::setScaleByWidth(cocos2d::CCLabelTTF* label, float width) {
+
+	if (label) {
+		float scale = width / label->getContentSize().width;
+		label->setScaleX(scale);
+		label->setScaleY(scale);
+	}
+}
+
+void LabelUtil::setScaleByHeight(cocos2d::CCLabelTTF* label, float height) {
+
+	if (label) {
+		float scale = height / label->getContentSize().height;
+		label->setScaleX(scale);
+		label->setScaleY(scale);
+	}
+}
+
 void LabelUtil::setColor(cocos2d::CCLabelTTF* label, int color) {
 
 	if (label) {

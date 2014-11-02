@@ -21,6 +21,10 @@ public:
 
 	static float getWidth(cocos2d::CCLabelTTF* label);
 	static float getHeight(cocos2d::CCLabelTTF* label);
+
+	static void setScaleByWidth(cocos2d::CCLabelTTF* label, float width);
+	static void setScaleByHeight(cocos2d::CCLabelTTF* label, float height);
+
 	static float getXMiddle(cocos2d::CCLabelTTF* label);
 
 	enum position {RIGHT, LEFT, BOTTOM, TOP, MIDDLE};
