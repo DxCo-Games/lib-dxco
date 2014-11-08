@@ -8,6 +8,13 @@ cocos2d::CCSprite* SpriteUtil::create(std::string texture, float x, float y, boo
 			SpriteUtil::UNDEFINED, useFrame);
 }
 
+cocos2d::CCSprite* SpriteUtil::create(std::string texture, float x, float y, cocos2d::CCSprite* scaleMaster, bool useFrame) {
+	cocos2d::CCSprite* spr = SpriteUtil::create(texture, x, y, SpriteUtil::UNDEFINED,
+			SpriteUtil::UNDEFINED, useFrame);
+	SpriteUtil::copyScale(scaleMaster, spr);
+	return spr;
+}
+
 void SpriteUtil::rotate(cocos2d::CCSprite* sprite, float angle) {
 	sprite->setRotation(sprite->getRotation() + angle);
 }
