@@ -207,8 +207,22 @@ void SpriteUtil::rightAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave)
 
 	copyScale(master, slave);
 
-	float leftMargin = master->getPositionX() + SpriteUtil::getWidth(master) / 2;
-	slave->setPositionX(leftMargin - SpriteUtil::getWidth(slave) / 2);
+	float rightMargin = master->getPositionX() + SpriteUtil::getWidth(master) / 2;
+	slave->setPositionX(rightMargin - SpriteUtil::getWidth(slave) / 2);
+}
+
+void SpriteUtil::topAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave) {
+	copyScale(master, slave);
+
+	float topMargin = master->getPositionY() + SpriteUtil::getHeight(master) / 2;
+	slave->setPositionY(topMargin - SpriteUtil::getHeight(slave) / 2);
+
+}
+void SpriteUtil::bottomAlign(cocos2d::CCSprite* master, cocos2d::CCSprite* slave) {
+	copyScale(master, slave);
+
+	float bottomMargin = master->getPositionY() - SpriteUtil::getHeight(master) / 2;
+	slave->setPositionY(bottomMargin + SpriteUtil::getHeight(slave) / 2);
 }
 
 void SpriteUtil::copyScale(cocos2d::CCSprite* spriteFrom, cocos2d::CCSprite* spriteTo) {
