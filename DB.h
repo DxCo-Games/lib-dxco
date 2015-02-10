@@ -12,6 +12,9 @@ public:
 
 	static std::string getString(const std::string& key);
 	static int getInteger(const std::string& key, int def=0);
+
+	static std::map<std::string, int> icache;
+	static std::map<std::string, std::string> scache;
 };
 
 } /* namespace dxco */
