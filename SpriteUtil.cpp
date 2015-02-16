@@ -12,6 +12,7 @@ cocos2d::CCSprite* SpriteUtil::create(std::string texture, float x, float y, coc
 	cocos2d::CCSprite* spr = SpriteUtil::create(texture, x, y, SpriteUtil::UNDEFINED,
 			SpriteUtil::UNDEFINED, useFrame);
 	SpriteUtil::copyScale(scaleMaster, spr);
+	SpriteUtil::moveTo(spr, x, y);
 	return spr;
 }
 
