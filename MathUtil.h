@@ -15,6 +15,9 @@ public:
 	 * goes from the origin to the pointA. */
 	static float angle(cocos2d::CCPoint center, cocos2d::CCPoint pointA);
 
+	//angle of the vector components
+	static float angle(cocos2d::CCPoint vector);
+
 	static float max(float value1, float value2);
 
 	//multiply by the scale

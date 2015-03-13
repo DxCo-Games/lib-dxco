@@ -16,6 +16,7 @@ SteeringBehaviorItem::SteeringBehaviorItem(float speed, float mass):
 
 void SteeringBehaviorItem::updateBehaviors(float dt, int enabledBehaviors,
 		cocos2d::CCPoint target, float distance, std::vector<Item*> &items,
+		std::vector<Item*> &obstacles,
 		float slowingRadius, float arrivalLimit) {
 
 	if (enabledBehaviors & USE_STAND) {
@@ -41,6 +42,9 @@ void SteeringBehaviorItem::updateBehaviors(float dt, int enabledBehaviors,
 		std::vector<Item*> neighbors;
 		this->getNeighborgs(items, neighbors);
 		steeringForce = steeringForce + this->separation(dt, neighbors);
+	}
+	if (enabledBehaviors & USE_OBSTACLE_AVOIDANCE) {
+		steeringForce = steeringForce + this->avoid(dt, obstacles);
 	}
 
 	cocos2d::CCPoint acceleration = MathUtil::scalarProd(steeringForce, 1 / this->mass);
@@ -134,5 +138,40 @@ void SteeringBehaviorItem::getNeighborgs(std::vector<Item*> &items,
 float SteeringBehaviorItem::getWanderSpeed() {
 	return this->speed;
 }
+
+cocos2d::CCPoint SteeringBehaviorItem::avoid(float dt, std::vector<Item*> &obstacles) {
+	float visionRange = this->getWidth() * 1.2;
+
+	int closest = -1;
+	float closestDist = -1;
+
+	for (int i=0; i < obstacles.size(); i++) {
+		float thisAngle = MathUtil::angle(cocos2d::CCPointZero, this->currentVelocity) * -57.2957795;
+		float distance = MathUtil::distance(this->getLocation(), obstacles[i]->getLocation());
+
+		if (this->inVisionRange(obstacles[i], visionRange, 150, distance, thisAngle)) {
+
+			//TODO if hay interseccion -> punto de menor distancia sobre la recta en que avanza el item
+
+			//FIXME en realidad hay que comprar con la distancia en el punto de interseccion
+			if (closest == -1 || distance < closestDist) {
+				closest = i;
+				closestDist = distance;
+			}
+
+		}
+	}
+	cocos2d::CCPoint steeringForce;
+	if (closest != -1) {
+		//use the direction from obstacle to item as force director
+		cocos2d::CCPoint to = this->getLocation() - obstacles[closest]->getLocation();
+		steeringForce = steeringForce + MathUtil::scaleVector(to, 10000 / (to.getLength()));
+		CCLOG("direct (%f,%f)", to.x, to.y);
+		CCLOG("force (%f,%f)", steeringForce.x, steeringForce.y);
+		return steeringForce;
+	}
+	return cocos2d::CCPointZero;
+}
+
 
 } /* namespace dxco */

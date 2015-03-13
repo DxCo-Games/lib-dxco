@@ -49,6 +49,16 @@ float MathUtil::angle(cocos2d::CCPoint center,
 	return result;
 }
 
+float MathUtil::angle(cocos2d::CCPoint vector) {
+	float angle = atan(vector.y / vector.x);
+	if(vector.x > 0 && vector.y > 0) { //quad 1
+		return angle;
+	} else if (vector.x < 0) { //quad 2 and 3
+		return angle + PI;
+	} else if (vector.y < 0) { //quad 4
+		return angle + 2*PI;
+	}
+}
 
 float MathUtil::max(float value1, float value2) {
 	return (value1 > value2) ? value1 : value2;

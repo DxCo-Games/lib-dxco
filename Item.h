@@ -44,6 +44,8 @@ public:
 
 	virtual float getColitionRatio();
 
+	bool inVisionRange(Item* item, float visionRange, float angleRange, float distance, float thisRotation);
+
 protected:
 	cocos2d::CCSprite* sprite;
 	cocos2d::CCTexture2D* defaultTexture;

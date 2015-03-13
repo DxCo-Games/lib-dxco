@@ -23,6 +23,7 @@ public:
 		USE_WALL_AVOIDANCE = 16,
 		USE_SEPARATION = 32,
 		USE_FLEE = 64,
+		USE_OBSTACLE_AVOIDANCE = 128
 	};
 
 	/* Calculates the steering forces of the enabled behaviors and updates the
@@ -32,6 +33,7 @@ public:
 	 */
 	virtual void updateBehaviors(float dt, int enabledBehaviors,
 			cocos2d::CCPoint target, float distance, std::vector<Item*> &items,
+			std::vector<Item*> &obstacles,
 			float slowingRadius = 0, float arrivalLimit = 0);
 
 	virtual cocos2d::CCPoint wander(float dt);
@@ -39,6 +41,9 @@ public:
 	virtual cocos2d::CCPoint arrive(float dt, cocos2d::CCPoint target, float distance,
 			float slowingRadius, float arrivalDistance);
 	virtual cocos2d::CCPoint separation(float dt, std::vector<Item*> &neighbors);
+	virtual cocos2d::CCPoint avoid(float dt, std::vector<Item*> &obstacles);
+
+	cocos2d::CCPoint getClosestPoint(Item* obstacle, float range);
 
 	/* By default sets the velocity point to the target. Can be overridden to specify some action
 	 * when the target is met, for example attack the enemy. */

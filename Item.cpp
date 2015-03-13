@@ -181,4 +181,10 @@ bool Item::isOutOfScreen() {
 	return false;
 }
 
+bool Item::inVisionRange(Item* item, float visionRange, float angleRange, float distance, float thisRotation) {
+	cocos2d::CCPoint toItem = item->getLocation() - this->getLocation();
+	float toItemAngle = MathUtil::angle(toItem) * -57.2957795;
+	return (distance < visionRange && abs(abs(thisRotation - toItemAngle)) < angleRange);
+}
+
 } /* namespace dxco */
