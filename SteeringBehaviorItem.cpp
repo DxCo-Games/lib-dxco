@@ -140,7 +140,7 @@ float SteeringBehaviorItem::getWanderSpeed() {
 }
 
 cocos2d::CCPoint SteeringBehaviorItem::avoid(float dt, std::vector<Item*> &obstacles) {
-	float visionRange = this->getWidth() * 1.2;
+	float visionRange = this->getWidth() * 2.5;
 
 	int closest = -1;
 	float closestDist = -1;
@@ -149,7 +149,7 @@ cocos2d::CCPoint SteeringBehaviorItem::avoid(float dt, std::vector<Item*> &obsta
 		float thisAngle = MathUtil::angle(cocos2d::CCPointZero, this->currentVelocity) * -57.2957795;
 		float distance = MathUtil::distance(this->getLocation(), obstacles[i]->getLocation());
 
-		if (this->inVisionRange(obstacles[i], visionRange, 150, distance, thisAngle)) {
+		if (this->inVisionRange(obstacles[i], visionRange, 360, distance, thisAngle)) {
 
 			//TODO if hay interseccion -> punto de menor distancia sobre la recta en que avanza el item
 
@@ -165,7 +165,7 @@ cocos2d::CCPoint SteeringBehaviorItem::avoid(float dt, std::vector<Item*> &obsta
 	if (closest != -1) {
 		//use the direction from obstacle to item as force director
 		cocos2d::CCPoint to = this->getLocation() - obstacles[closest]->getLocation();
-		steeringForce = steeringForce + MathUtil::scaleVector(to, 10000 / (to.getLength()));
+		steeringForce = steeringForce + MathUtil::scaleVector(to, 3000 / (to.getLength()));
 		CCLOG("direct (%f,%f)", to.x, to.y);
 		CCLOG("force (%f,%f)", steeringForce.x, steeringForce.y);
 		return steeringForce;
