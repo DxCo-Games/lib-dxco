@@ -66,13 +66,13 @@ std::string StringUtil::padLeft(int number, const int stringSize)
 	return padLeft(numberString, stringSize, '0');
 }
 
-std::string sFormat(std::string s, std::string value) {
+std::string StringUtil::sFormat(std::string s, std::string value) {
 	char buff[200];
 	sprintf(buff, s.c_str(), value.c_str());
 	std::string buffAsStdStr = buff;
 	return buff;
 }
-std::string iFormat(std::string s, int value) {
+std::string StringUtil::iFormat(std::string s, int value) {
 	char buff[200];
 	sprintf(buff, s.c_str(), value);
 	std::string buffAsStdStr = buff;
