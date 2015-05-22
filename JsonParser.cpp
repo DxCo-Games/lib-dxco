@@ -9,7 +9,9 @@ rapidjson::Document* JsonParser::parseJson(std::string& json) {
 	rapidjson::Document* document = new rapidjson::Document();
 	document->Parse<0>(json.c_str());
 
-	cocos2d::CCLog("tiene errores? %i" , document->HasParseError());
+	if (document->HasParseError()) {
+		cocos2d::CCLog("ERROR parsing json offset %d: %s" , document->GetErrorOffset(), document->GetParseError());
+	}
 
 	return document;
 }
