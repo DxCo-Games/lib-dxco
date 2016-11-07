@@ -7,14 +7,14 @@ It can be included in other projects as a git submodule.
 
 ```
 cd PROJECT_HOME/
-git submodule add git@bitbucket.org:dxco/lib-dxco.git Classes/dxco
+git submodule add git@github.com:DxCo-Games/lib-dxco.git Classes/dxco
 ```
 
 ## Clone a repo that includes dxco ##
 
 ```
 cd PROJECT_HOME/
-git clone git@bitbucket.org:dxco/PROJECT.git .
+git clone <repo> .
 git submodule init
 git submodule update
 ```
